@@ -1,6 +1,6 @@
 module github.com/amidgo/tester
 
-go 1.21
+go 1.20
 
 toolchain go1.21.4
 
