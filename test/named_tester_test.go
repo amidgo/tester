@@ -38,3 +38,13 @@ func Test_NamedTesterContainer_Not_Test_Call_Case(t *testing.T) {
 
 	nt.AssertNotCalled(t)
 }
+
+func Test_RunNamedTesters(t *testing.T) {
+	tester.RunNamedTesters(
+		t,
+		mock.NewMockedNamedTester(t),
+		mock.NewMockedNamedTester(t),
+		mock.NewMockedNamedTester(t),
+		mock.NewMockedNamedTester(t),
+	)
+}

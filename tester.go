@@ -10,14 +10,14 @@ type TesterContainer struct {
 	testers []Tester
 }
 
-func NewTesterContainer(t *testing.T) *TesterContainer {
-	tester := &TesterContainer{
-		testers: make([]Tester, 0),
+func RunTesters(t *testing.T, testers ...Tester) {
+	for _, tester := range testers {
+		if tester == nil {
+			continue
+		}
+
+		tester.Test(t)
 	}
-
-	t.Cleanup(func() { tester.Test(t) })
-
-	return tester
 }
 
 func (tt *TesterContainer) AddTester(t Tester) {
@@ -29,6 +29,7 @@ func (tt *TesterContainer) Test(t *testing.T) {
 		if tester == nil {
 			continue
 		}
+
 		tester.Test(t)
 	}
 }

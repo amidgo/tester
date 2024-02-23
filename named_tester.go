@@ -11,14 +11,14 @@ type NamedTesterContainer struct {
 	namedTesters []NamedTester
 }
 
-func NewNamedTesterContainer(t *testing.T) *NamedTesterContainer {
-	tester := &NamedTesterContainer{
-		namedTesters: make([]NamedTester, 0),
+func RunNamedTesters(t *testing.T, namedTesters ...NamedTester) {
+	for _, tester := range namedTesters {
+		if tester == nil {
+			continue
+		}
+
+		t.Run(tester.Name(), tester.Test)
 	}
-
-	t.Cleanup(func() { tester.Test(t) })
-
-	return tester
 }
 
 func (c *NamedTesterContainer) AddNamedTester(tester NamedTester) {
