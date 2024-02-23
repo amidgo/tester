@@ -10,6 +10,16 @@ type TesterContainer struct {
 	testers []Tester
 }
 
+func NewTesterContainer(t *testing.T) *TesterContainer {
+	tester := &TesterContainer{
+		testers: make([]Tester, 0),
+	}
+
+	t.Cleanup(func() { tester.Test(t) })
+
+	return tester
+}
+
 func (tt *TesterContainer) AddTester(t Tester) {
 	tt.testers = append(tt.testers, t)
 }
