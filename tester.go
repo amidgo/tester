@@ -6,6 +6,12 @@ type Tester interface {
 	Test(t *testing.T)
 }
 
+type TesterFunc func(t *testing.T)
+
+func (tf TesterFunc) Test(t *testing.T) {
+	tf(t)
+}
+
 type TesterContainer struct {
 	testers []Tester
 }

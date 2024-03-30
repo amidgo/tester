@@ -7,6 +7,26 @@ type NamedTester interface {
 	Test(t *testing.T)
 }
 
+type NamedTesterFunc struct {
+	name string
+	f    func(t *testing.T)
+}
+
+func (nt *NamedTesterFunc) Name() string {
+	return nt.name
+}
+
+func (nt *NamedTesterFunc) Test(t *testing.T) {
+	nt.f(t)
+}
+
+func NewNamedTester(name string, f func(t *testing.T)) NamedTester {
+	return &NamedTesterFunc{
+		name: name,
+		f:    f,
+	}
+}
+
 type NamedTesterContainer struct {
 	namedTesters []NamedTester
 }
