@@ -20,7 +20,7 @@ func (nt *NamedTesterFunc) Test(t *testing.T) {
 	nt.f(t)
 }
 
-func NamedTester(name string, f func(t *testing.T)) NamedTester {
+func NewNamedTester(name string, f func(t *testing.T)) NamedTester {
 	return &NamedTesterFunc{
 		name: name,
 		f:    f,
