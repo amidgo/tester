@@ -7,6 +7,16 @@ type NamedTester interface {
 	Test(t *testing.T)
 }
 
+func RunNamedTesters(t *testing.T, namedTesters ...NamedTester) {
+	for _, tester := range namedTesters {
+		if tester == nil {
+			continue
+		}
+
+		t.Run(tester.Name(), tester.Test)
+	}
+}
+
 type NamedTesterFunc struct {
 	name string
 	f    func(t *testing.T)
@@ -24,15 +34,5 @@ func NewNamedTester(name string, f func(t *testing.T)) NamedTester {
 	return &NamedTesterFunc{
 		name: name,
 		f:    f,
-	}
-}
-
-func RunNamedTesters(t *testing.T, namedTesters ...NamedTester) {
-	for _, tester := range namedTesters {
-		if tester == nil {
-			continue
-		}
-
-		t.Run(tester.Name(), tester.Test)
 	}
 }
